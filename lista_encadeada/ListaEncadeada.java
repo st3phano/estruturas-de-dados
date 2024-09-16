@@ -9,6 +9,33 @@ public class ListaEncadeada {
     return (lista == null);
   }
 
+  public Node get_node(int info) {
+    Node atual = lista;
+
+    while (atual != null && atual.get_info() != info) {
+      atual = atual.get_proximo();
+    }
+
+    return atual;
+  }
+
+  public Node get_primeiro() {
+    return lista;
+  }
+
+  public Node get_ultimo() {
+    if (is_vazia()) {
+      return null;
+    }
+
+    Node ultimo = lista;
+    while (ultimo.get_proximo() != null) {
+      ultimo = ultimo.get_proximo();
+    }
+
+    return ultimo;
+  }
+
   public void inserir_primeiro(int info) {
     var novo_node = new Node(info, lista);
     lista = novo_node;
@@ -37,7 +64,7 @@ public class ListaEncadeada {
   }
 
   public void inserir_ordenado(int info) {
-    if (is_vazia()) {
+    if (is_vazia() || (info < lista.get_info())) {
       inserir_primeiro(info);
     } else {
       Node anterior = lista;
@@ -50,26 +77,6 @@ public class ListaEncadeada {
 
       inserir_depois(anterior, info);
     }
-  }
-
-  public Node get_node(int info) {
-    Node atual = lista;
-
-    while (atual != null && atual.get_info() != info) {
-      atual = atual.get_proximo();
-    }
-
-    return atual;
-  }
-
-  public void imprimir() {
-    Node atual = lista;
-
-    while (atual != null) {
-      System.out.print(atual.get_info() + " ");
-      atual = atual.get_proximo();
-    }
-    System.out.println();
   }
 
   public Node remover_primeiro() {
@@ -123,6 +130,62 @@ public class ListaEncadeada {
     }
 
     return atual;
+  }
+
+  public void imprimir() {
+    System.out.print("{ ");
+
+    Node atual = lista;
+    while (atual != null) {
+      System.out.print(atual.get_info() + " ");
+      atual = atual.get_proximo();
+    }
+
+    System.out.println("}");
+  }
+
+  // MÉTODOS RECURSIVOS
+
+  public void imprimir_ao_contrario() {
+    System.out.print("{ ");
+    imprimir_ao_contrario(lista);
+    System.out.println("}");
+  }
+
+  private void imprimir_ao_contrario(Node inicio_lista) {
+    if (inicio_lista != null) {
+      imprimir_ao_contrario(inicio_lista.get_proximo());
+      System.out.print(inicio_lista.get_info() + " ");
+    }
+  }
+
+  public Node get_node_recursivo(int info) {
+    return get_node_recursivo(info, lista);
+  }
+
+  private Node get_node_recursivo(int info, Node atual) {
+    if (atual == null) {
+      return null;
+    }
+    if (atual.get_info() == info) {
+      return atual;
+    }
+    return get_node_recursivo(info, atual.get_proximo());
+  }
+
+  public Node get_ultimo_recursivo() {
+    if (is_vazia()) {
+      return null;
+    }
+    return get_ultimo_recursivo(lista);
+  }
+
+  private Node get_ultimo_recursivo(Node atual) {
+    Node proximo = atual.get_proximo();
+    if (proximo == null) {
+      return atual;
+    }
+    return get_ultimo_recursivo(proximo);
   }
 }
 

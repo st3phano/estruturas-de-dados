@@ -1,10 +1,10 @@
-public class Fila {
+public class FilaCircular {
   public final int CAPACIDADE;
 
   private int primeiro, ultimo, tamanho;
   private int[] dados;
 
-  public Fila(int capacidade) {
+  public FilaCircular(int capacidade) {
     CAPACIDADE = capacidade;
     primeiro = 0;
     ultimo = -1;
@@ -66,8 +66,8 @@ public class Fila {
     System.out.println();
   }
 
-  public static Fila merge(Fila fila_a, Fila fila_b) {
-    var fila_c = new Fila(fila_a.CAPACIDADE + fila_b.CAPACIDADE);
+  public static FilaCircular merge(FilaCircular fila_a, FilaCircular fila_b) {
+    var fila_c = new FilaCircular(fila_a.CAPACIDADE + fila_b.CAPACIDADE);
 
     int int_fila_a = fila_a.remover();
     int int_fila_b = fila_b.remover();
